@@ -1,14 +1,23 @@
-message :id => "headline", :text => ""
+clear do
+  message :id => "headline", :text => ""
+end
 
-grid :id => "grid" do
-  9.times do |i|
-    cell :id => "cell#{i}"
+clear do
+  grid :id => "grid" do
+    9.times do |i|
+      cell :id => "cell#{i+1}"
+    end
   end
 end
 
-play_button :players => "button", :id => "play_button"
+clear do
+  play_button :players => "button", :id => "play_button", :text => "play"
+end
 
-player_1_chooser :players => "combo_box", :id => "player_1", 
-  :choices => [TicTacToe::Player::COMPUTER], :value => TicTacToe::Player::HUMAN
-player_2_chooser :players => "combo_box", :id => "player_2",
-  :choices => [TicTacToe::Player::COMPUTER], :value => TicTacToe::Player::HUMAN
+clear do
+  player_chooser :players => "drop_down", :id => "player_1", 
+    :choices => [TicTacToe::Player::HUMAN, TicTacToe::Player::COMPUTER].map(&:capitalize)
+
+  player_chooser :players => "drop_down", :id => "player_2",
+    :choices => [TicTacToe::Player::HUMAN, TicTacToe::Player::COMPUTER].map(&:capitalize)
+end
