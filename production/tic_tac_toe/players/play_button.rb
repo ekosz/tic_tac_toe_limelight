@@ -2,27 +2,34 @@ on_button_pushed do
   unless button_disabled? 
     @grid_util = GridUtil.new(scene)
 
-    @grid_util.clear_grid
-    scene.find("headline").text = ""
+    clear_game
+
     set_production_players
 
-    game = production.game(@grid_util.current_grid)
-    game.start
-    @grid_util.set_cells_from_game(game)
-    
-    disable_button unless game.cats?
+    game = update_game_board
 
-    scene.find("headline").text = "Cats Game!" if game.cats?
+    disable_button unless game_over?(game)
+
+    set_headline if game_over?(game)
   end
 end
 
+def clear_game
+  @grid_util.clear_grid
+  clear_headline
+end
+
+def clear_headline
+  scene.find("headline").text = ""
+end
+
 def set_production_players
-  unless scene.find("player_1").drop_down.value == "Human"
+  if scene.find("player_1").drop_down.value == "Human"
+    production.player_1 = no_move_player("1")
+    production.player_2 = no_move_player("2")
+  else
     production.player_1 = computer_or_human_player("1")
     production.player_2 = computer_or_human_player("2")
-  else
-    production.player_1 = no_move_player( @grid_util.letter("1") )
-    production.player_2 = no_move_player( @grid_util.letter("2") )
   end
 end
 
@@ -31,11 +38,19 @@ def computer_or_human_player(num)
     return TicTacToe::Player::Computer.new(:letter => @grid_util.letter(num))
   end
 
-  no_move_player( @grid_util.letter(num) )
+  no_move_player(num)
 end
 
-def no_move_player(letter)
-  TicTacToe::Player::Human.new(:letter => letter, :move => nil)
+def no_move_player(player)
+  TicTacToe::Player::Human.new(:letter => @grid_util.letter(player), 
+                               :move => nil)
+end
+
+def update_game_board
+  game = production.game(@grid_util.current_grid)
+  game.start
+  @grid_util.set_cells_from_game(game)
+  game
 end
 
 def button_disabled?
@@ -44,4 +59,12 @@ end
 
 def disable_button
   self.style.transparency = "50%" 
+end
+
+def game_over?(game)
+  game.cats?
+end
+
+def set_headline
+  scene.find("headline").text = "Cats Game!"
 end
