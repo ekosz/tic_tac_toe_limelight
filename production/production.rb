@@ -5,6 +5,7 @@ require 'json'
 on_production_created do
   require 'tic_tac_toe'
   require File.dirname(__FILE__) + '/lib/grid_util'
+  require File.dirname(__FILE__) + '/lib/click_cell_interactor'
 end
 
 def player_1=(player); @player_1 = player end

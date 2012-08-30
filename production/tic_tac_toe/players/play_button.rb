@@ -49,7 +49,7 @@ end
 def update_game_board
   game = production.game(@grid_util.current_grid)
   game.start
-  @grid_util.set_cells_from_game(game)
+  @grid_util.set_cells_from_game(game.grid)
   game
 end
 
