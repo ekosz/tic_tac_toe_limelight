@@ -1,5 +1,5 @@
 stage "default" do
-  default_scene "tic_tac_toe"
+  default_scene "new_game"
   title "Tic Tac Toe: Limelight"
   location [:center, :center]
   size [800, 800]

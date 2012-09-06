@@ -2,11 +2,6 @@ message {
   font_size 32
 }
 
-clear { 
-  width "100%"
-  horizontal_alignment :center
-}
-
 grid {
   width "75%"
   height 600
@@ -22,6 +17,7 @@ cell {
   horizontal_alignment :center
   border_width 5
   border_color :black
+  font_face "Handwriting - Dakota"
 }
 
 play_button {
