@@ -7,16 +7,6 @@ describe "Play Button" do
     play_button.text.should == "play"
   end
 
-  it "sets the production players" do
-    scene.find("player_1").drop_down.value = "Human"
-    scene.find("player_2").drop_down.value = "Human"
-
-    mouse.push play_button
-
-    production.player_1.should be_a_kind_of(TicTacToe::Player::Human)
-    production.player_2.should be_a_kind_of(TicTacToe::Player::Human)
-  end
-
   it "becomes disabled after pushed" do
     mouse.push play_button
 

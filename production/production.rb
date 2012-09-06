@@ -4,8 +4,11 @@ require 'json'
 
 on_production_created do
   require 'tic_tac_toe'
-  require File.dirname(__FILE__) + '/lib/grid_util'
-  require File.dirname(__FILE__) + '/lib/click_cell_interactor'
+  require File.dirname(__FILE__) + '/lib/view_helper'
+  require File.dirname(__FILE__) + '/lib/make_move_interactor'
+  require File.dirname(__FILE__) + '/lib/player_factory'
+  require File.dirname(__FILE__) + '/lib/cell_players_builder'
+  require File.dirname(__FILE__) + '/lib/play_button_players_builder'
 end
 
 def player_1=(player); @player_1 = player end

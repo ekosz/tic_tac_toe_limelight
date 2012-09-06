@@ -5,11 +5,15 @@ on_mouse_clicked do
   if game_started?
 
 
-    results = ClickCellInteractor.new(production, 
-                            @grid_util.current_grid,
-                            current_player,
-                            cell_location,
-                            scene.find("player_#{other_player}").drop_down.value).execute
+    players = CellPlayersBuilder.new(current_player, 
+                                 cell_location, 
+                                 scene.find("player_#{other_player}").drop_down.value)
+
+    game = TicTacToe::Game.new(@grid_util.current_grid,
+                               players.player_1,
+                               players.player_2)
+
+    results = MakeMoveInteractor.new(game).execute
 
     @grid_util.set_cells_from_game(results[:grid])
 
@@ -30,12 +34,12 @@ def current_player
   "2"
 end
 
-def other_player
-  current_player == "1" ? "2" : "1"
-end
-
 def count(letter)
   scene.find_by_name("cell").select { |cell| cell.text == letter }.count
+end
+
+def other_player
+  current_player == "1" ? "2" : "1"
 end
 
 def cell_location

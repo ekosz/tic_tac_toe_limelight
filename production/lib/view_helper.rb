@@ -7,10 +7,6 @@ class GridUtil
     cells.each { |cell| cell.text = "" }
   end
 
-  def letter(num)
-    num == "1" ? TicTacToe::O : TicTacToe::X
-  end
-
   def current_grid
     cells.map do |cell| 
       cell.text.to_s == "" ? nil : cell.text 
