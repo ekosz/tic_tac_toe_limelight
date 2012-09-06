@@ -1,12 +1,7 @@
 require 'spec_helper'
 
 describe "Tic Tac Toe" do
-  uses_limelight :scene => "tic_tac_toe"
-
-  it "has a grid" do
-    grid = scene.find("grid")
-    grid.should_not be_nil
-  end
+  uses_limelight :scene => "new_game"
 
   it "has has a play button" do
     play = scene.find("play_button")
@@ -32,6 +27,7 @@ describe "Tic Tac Toe" do
     scene.find_by_name("cell").each do |cell|
       ["x", "o"].should include(cell.text)
     end
+
     scene.find("headline").text.should == "Cats Game!"
   end
 end

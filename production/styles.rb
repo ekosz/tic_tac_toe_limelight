@@ -1,6 +1,7 @@
 background {
   background_image "lined_paper/lined_paper.png"
   height "100%"
+  vertical_alignment :center
 }
 
 clear { 
