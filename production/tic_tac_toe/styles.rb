@@ -20,5 +20,6 @@ cell {
   font_face "Handwriting - Dakota"
 }
 
-play_button {
+buttons {
+  transparency "100%"
 }

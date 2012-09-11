@@ -3,13 +3,12 @@ require File.dirname(__FILE__)+'/../../spec_helper'
 describe "Cell" do
   uses_limelight :scene => "tic_tac_toe"
 
-  it "can't be clicked until the play button is clicked" do
-    cell = scene.find_by_name("cell").first
-    mouse.click cell
-    [nil, ""].should include(cell.text)
-  end
-
   context "in a player goes first game" do
+    before do
+      scene.player_1 = "Human"
+      scene.player_2 = "Computer"
+    end
+
     it "the first click creates an o" do
       cell = scene.find_by_name("cell").first
 
@@ -30,12 +29,11 @@ describe "Cell" do
 
   context "in a computer goes first game" do
     before do
+      scene.player_1 = "Computer"
+      scene.player_2 = "Human"
       player_1 = PlayerFactory.computer_player("1")
       player_2 = PlayerFactory.no_move_player("2")
-      helper = GridUtil.new(scene)
-      game = TicTacToe::Game.new(helper.current_grid, player_1, player_2)
-      game.start
-      helper.set_cells_from_game(game.grid)
+      scene.make_move(player_1, player_2)
     end
 
     it "the first click creates an x" do
@@ -57,6 +55,11 @@ describe "Cell" do
   end
 
   context "in a human vs human game" do
+    before do
+      scene.player_1 = "Human"
+      scene.player_2 = "Human"
+    end
+
     it "the first click is o" do
       cell = scene.find_by_name("cell").first
 
@@ -73,6 +76,18 @@ describe "Cell" do
 
       cell.text.should eq("x")
     end
+
+    context "when the game is over" do
+      before do
+        1.upto(8) { |i| scene.find("cell#{i}").text = "x" }
+        mouse.click scene.find("cell9")
+      end
+
+      it "shows the play_again and main_menu buttons" do
+        scene.find("buttons").style.transparency.should == "0%"
+      end
+    end
+
   end
 
   def count_letter(letter)

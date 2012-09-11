@@ -1,19 +1,7 @@
 on_mouse_clicked do
-  @grid_util = GridUtil.new(scene)
+  players = CellPlayersBuilder.new(current_player, cell_location, other_player_value)
 
-  players = CellPlayersBuilder.new(current_player, 
-                               cell_location, 
-                               scene.find("player_#{other_player}").drop_down.value)
-
-  game = TicTacToe::Game.new(@grid_util.current_grid,
-                             players.player_1,
-                             players.player_2)
-
-  results = MakeMoveInteractor.new(game).execute
-
-  @grid_util.set_cells_from_game(results[:grid])
-
-  set_headline_text(results[:headline]) if results[:game_solved]
+  scene.make_move(players.player_1, players.player_2)
 end
 
 def current_player
@@ -29,14 +17,14 @@ def count(letter)
   scene.find_by_name("cell").select { |cell| cell.text == letter }.count
 end
 
+def other_player_value
+  scene.send(:"player_#{other_player}")
+end
+
 def other_player
   current_player == "1" ? "2" : "1"
 end
 
 def cell_location
   self.id[-1..-1] # Last char of string ex. "cell9" => "9"
-end
-
-def set_headline_text(text)
-  scene.find("headline").text = text
 end

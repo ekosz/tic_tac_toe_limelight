@@ -23,11 +23,13 @@ describe "Tic Tac Toe" do
     scene.find("player_2").drop_down.value = "Computer"
 
     mouse.push scene.find("play_button")
+    
+    play_scene = production.theater.default_stage.scene
 
-    scene.find_by_name("cell").each do |cell|
+    play_scene.find_by_name("cell").each do |cell|
       ["x", "o"].should include(cell.text)
     end
 
-    scene.find("headline").text.should == "Cats Game!"
+    play_scene.find("headline").text.should == "Cats Game!"
   end
 end

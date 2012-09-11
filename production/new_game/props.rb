@@ -5,19 +5,21 @@ background do
   end
 
   clear do
-    half do
-      clear { label :text => "Player 1" }
-      clear do
-        player_chooser :players => "drop_down", :id => "player_1", 
-          :choices => [TicTacToe::Player::HUMAN, TicTacToe::Player::COMPUTER].map(&:capitalize)
+    three_forth do
+      half do
+        clear { label :text => "Player 1" }
+        clear do
+          player_chooser :players => "drop_down", :id => "player_1", 
+            :choices => [TicTacToe::Player::HUMAN, TicTacToe::Player::COMPUTER].map(&:capitalize)
+        end
       end
-    end
 
-    half do
-      clear { label :text => "Player 2" }
-      clear do 
-        player_chooser :players => "drop_down", :id => "player_2",
-          :choices => [TicTacToe::Player::HUMAN, TicTacToe::Player::COMPUTER].map(&:capitalize)
+      half do
+        clear { label :text => "Player 2" }
+        clear do 
+          player_chooser :players => "drop_down", :id => "player_2",
+            :choices => [TicTacToe::Player::HUMAN, TicTacToe::Player::COMPUTER].map(&:capitalize)
+        end
       end
     end
 

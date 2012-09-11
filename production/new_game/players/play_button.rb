@@ -1,22 +1,24 @@
 on_button_pushed do
+  players = PlayButtonPlayersBuilder.new(player_1, player_2)
 
-  players = PlayButtonPlayersBuilder.new(scene.find("player_1").drop_down.value,
-                                         scene.find("player_2").drop_down.value)
   play_scene = production.open_scene("tic_tac_toe")
 
-  @grid_util = GridUtil.new(play_scene)
+  play_scene.player_1 = player_1
+  play_scene.player_2 = player_2
 
-  game = TicTacToe::Game.new(@grid_util.current_grid,
-                             players.player_1,
-                             players.player_2)
-
-  results = MakeMoveInteractor.new(game).execute
-
-  @grid_util.set_cells_from_game(results[:grid])
-
-  set_headline(play_scene, results[:headline]) if results[:game_solved]
+  play_scene.make_move(players.player_1, players.player_2)
 end
 
-def set_headline(scene, text)
-  scene.find("headline").text = text
+private
+
+def player_1
+  @player_1 ||= player("1")
+end
+
+def player_2
+  @player_2 ||= player("2")
+end
+
+def player(num)
+  scene.find("player_#{num}").drop_down.value
 end

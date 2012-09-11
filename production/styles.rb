@@ -12,3 +12,7 @@ clear {
 half {
   width "50%"
 }
+
+three_forth {
+  width "75%"
+}
