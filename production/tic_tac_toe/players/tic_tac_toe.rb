@@ -9,7 +9,6 @@ def make_move(player_1, player_2)
 
   if results[:game_solved]
     scene.find("headline").text = results[:headline]
-    scene.find("buttons").style.transparency = "0%"
   end
 end
 

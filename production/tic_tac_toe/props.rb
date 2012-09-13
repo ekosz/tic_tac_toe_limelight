@@ -13,14 +13,7 @@ background do
   end
 
   clear do
-    buttons :id => "buttons" do
-      half do 
-        clear { play_again :players => "button", :id => "play_again", :text => "Play Again" }
-      end
-      half do
-        clear { main_menu  :players => "button", :id => "main_menu", :text => "Main Menu" }
-      end
-    end
+    main_menu  :players => "button", :id => "main_menu", :text => "Main Menu"
   end
 
 end
